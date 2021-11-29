@@ -1,3 +1,5 @@
+import 'package:day18_todo_app/bloc/todo_cubit.dart';
+import 'package:day18_todo_app/widgets/new_todo_view.dart';
 import 'package:flutter/material.dart';
 
 class NewTodoButton extends StatelessWidget {
@@ -8,7 +10,10 @@ class NewTodoButton extends StatelessWidget {
     return FloatingActionButton(
       child: const Icon(Icons.add),
       onPressed: () {
-        debugPrint("show new todo sheet");
+        showModalBottomSheet(
+          context: context,
+          builder: (context) => const NewTodoViewState(),
+        );
       },
     );
   }
