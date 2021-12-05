@@ -1,21 +1,31 @@
 import 'package:day18_todo_app/data/todo_repository.dart';
 import 'package:day18_todo_app/models/ModelProvider.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-abstract class TodoState {}
+abstract class TodoState extends Equatable {}
 
-class LoadingTodos extends TodoState {}
+class LoadingTodos extends TodoState {
+  @override
+  List<Object?> get props => [];
+}
 
 class ListTodosSuccess extends TodoState {
   ListTodosSuccess({required this.todos});
 
   final List<Todo> todos;
+
+  @override
+  List<Object?> get props => [todos];
 }
 
 class ListTodosFailure extends TodoState {
   ListTodosFailure({required this.exception});
 
   final Object exception;
+
+  @override
+  List<Object?> get props => [exception];
 }
 
 class TodoCubit extends Cubit<TodoState> {
@@ -41,5 +51,8 @@ class TodoCubit extends Cubit<TodoState> {
     getTodos();
   }
 
-  void updateTodoIsComplete(Todo todo, bool isComplete) {}
+  void updateTodoIsComplete(Todo todo, bool isComplete) async {
+    await _todoRepo.updateTodoIsComplete(todo, isComplete);
+    getTodos();
+  }
 }

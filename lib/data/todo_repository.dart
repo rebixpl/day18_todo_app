@@ -21,7 +21,7 @@ class TodoRepository {
     }
   }
 
-  void updateTodoIsComplete(Todo todo, bool isComplete) async {
+  Future<void> updateTodoIsComplete(Todo todo, bool isComplete) async {
     // to update data modele we need to make sure that id proeprty is the same
     final updatedTodo = todo.copyWith(isComplete: isComplete);
 
